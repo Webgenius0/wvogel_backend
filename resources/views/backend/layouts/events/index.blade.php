@@ -38,7 +38,7 @@
                 <tr>
                     <td>{{ $event->event_title ?? 'N/A' }}</td>
                     <td>{{ $event->event_description ?? 'N/A' }}</td>
-                    <td>{{ $event->event_date ?? 'N/A' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($event->event_date)->format('Y-m-d H:i') ?? 'N/A' }}</td>
                     <td>{{ $event->event_location ?? 'N/A' }}</td>
 
                     <td>

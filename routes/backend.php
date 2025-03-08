@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\Backend\CategoryController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\EventController;
 use App\Http\Controllers\Web\Backend\HorsesController;
@@ -28,6 +29,16 @@ Route::controller(ProfileController::class)->group(function () {
 Route::controller(SystemSettingController::class)->group(function () {
     Route::get('/system-setting', 'index')->name('system.index');
     Route::patch('/system-setting', 'update')->name('system.update');
+});
+
+//! Route for category
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category', 'index')->name('category.index');
+    Route::get('/category/create', 'create')->name('category.create');
+    Route::post('/category', 'store')->name('category.store');
+    Route::get('/category/{id}/edit', 'edit')->name('category.edit');
+    Route::put('/category/{id}', 'update')->name('category.update');
+    Route::delete('/category/{id}', 'destroy')->name('category.destroy');
 });
 
 //! Route for Horse

@@ -32,6 +32,19 @@
 
             <div class="row">
                 <div class="col-md-6">
+                    <!-- Category Dropdown -->
+                    <div class="form-group">
+                        <label for="category_id">Category</label>
+                        <select name="category_id" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="form-group">
                         <label for="name">Horse Name</label>
                         <input type="text" name="name" class="form-control" required>
@@ -61,6 +74,8 @@
                         <label for="racing_show">Racing Show</label>
                         <input type="number" name="racing_show" class="form-control">
                     </div>
+
+
                 </div>
 
                 <div class="col-md-6">

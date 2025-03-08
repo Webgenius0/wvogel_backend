@@ -10,6 +10,7 @@ class Horses extends Model
     use HasFactory;
 
     protected $fillable = [
+        'category_id',
         'name',
         'about_horse',
         'horse_image',
@@ -32,5 +33,8 @@ class Horses extends Model
 
     public function horseShareForSale(){
         return $this->hasMany(HorseShareForSale::class);
+    }
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }

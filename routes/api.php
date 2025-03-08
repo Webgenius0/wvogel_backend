@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiEventController;
 use App\Http\Controllers\Api\ApiHorseController;
 use App\Http\Controllers\Api\ApiHorseShareForSaleController;
 use App\Http\Controllers\Api\ApiMessageController;
@@ -30,6 +31,10 @@ Route::controller(ApiRaceController::class)->group(function () {
 Route::controller(ApiWinChampionController::class)->group(function () {
     Route::get('win-champion', 'index');
 
+});
+//event methods
+Route::controller(ApiEventController::class)->group(function () {
+    Route::get('event', 'index');
 });
 
 // Chat messages methods

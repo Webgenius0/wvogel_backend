@@ -38,7 +38,7 @@
 
             <div class="mb-3">
                 <label for="event_date" class="form-label">Event Date</label>
-                <input type="date" class="form-control" id="event_date" name="event_date" required>
+                <input type="datetime-local" class="form-control" id="event_date" name="event_date" required>
             </div>
 
             <div class="mb-3">

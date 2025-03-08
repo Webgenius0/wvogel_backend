@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Backend;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Horses;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class HorsesController extends Controller
 
     public function create()
     {
-        return view('backend.layouts.horses.create');
+        $categories = Category::all();
+        return view('backend.layouts.horses.create', compact('categories'));
     }
 
 
@@ -30,6 +32,7 @@ class HorsesController extends Controller
         try {
             // Validate the request data
             $validatedData = $request->validate([
+                'category_id' => 'required|exists:categories,id',
                 'name' => 'required|string|max:255',
                 'about_horse' => 'nullable|string',
                 'horse_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Optional field (assuming it stores a file path)
@@ -52,6 +55,7 @@ class HorsesController extends Controller
 
             // Create a new horse record
             $storehorse = Horses::create([
+                'category_id' => $validatedData['category_id'],
                 'name' => $validatedData['name'],
                 'about_horse' => $validatedData['about_horse'] ?? null,
                 'horse_image' => $validatedData['horse_image'] ?? null,
@@ -76,8 +80,9 @@ class HorsesController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::all();
         $horse = Horses::findOrFail($id);
-        return view('backend.layouts.horses.edit', compact('horse'));
+        return view('backend.layouts.horses.edit', compact('horse', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -85,6 +90,7 @@ class HorsesController extends Controller
         try {
             // Validate the request data
             $validatedData = $request->validate([
+                'category_id' => 'required|exists:categories,id',
                 'name' => 'required|string|max:255',
                 'about_horse' => 'nullable|string',
                 'horse_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Optional field (assuming it stores a file path)
@@ -108,6 +114,7 @@ class HorsesController extends Controller
             // Update the horse record
             $horse = Horses::findOrFail($id);
             $horse->update([
+                'category_id' => $validatedData['category_id'],
                 'name' => $validatedData['name'],
                 'about_horse' => $validatedData['about_horse'] ?? null,
                 'horse_image' => $validatedData['horse_image'] ?? null,

@@ -50,6 +50,7 @@
                     </a>
 
                     <ul class="slide-menu">
+                        <li><a href="{{ route('category.index') }}" class="slide-item">Category List</a></li>
                         <li><a href="{{ route('horse.index') }}" class="slide-item">Horse List</a></li>
                         <li><a href="{{ route('race.index') }}" class="slide-item">Horse Race</a></li>
                     </ul>

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('horses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id'); // Foreign key referencing categories table
             $table->string('name');
             $table->text('about_horse')->nullable(); // Optional field
             $table->string('horse_image')->nullable(); // Optional field
@@ -25,7 +26,9 @@ return new class extends Migration
             $table->string('age');
             $table->string('trainer');
             $table->string('owner');
-            $table->timestamps(); 
+            $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); // Add foreign key constraint to categories table using Laravel's migration syntax. This ensures data integrity and prevents orphaned records.
+
         });
     }
 

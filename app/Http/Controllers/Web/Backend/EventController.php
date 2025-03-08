@@ -24,15 +24,17 @@ class EventController extends Controller
     {
         validator($request->all(), [
             'event_title' => 'required|string|max:255',
-            'event_description' => 'required|string|max:255',
+            'event_description' => 'nullable|string|max:255',
             'event_date' => 'required|string|max:255',
             'event_location' => 'required|string|max:255',
-            'event_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'event_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        $event_image_path = null;
+
+        // If an image is uploaded, store it
         if ($request->hasFile('event_image')) {
             $event_image_path = $request->file('event_image')->store('event_image', 'public');
-            $validatedData['event_image'] = $event_image_path;
         }
 
         Event::create([
@@ -54,15 +56,17 @@ class EventController extends Controller
     public function update(Request $request, $id){
         $request->validate([
             'event_title' => 'required|string|max:255',
-            'event_description' => 'required|string|max:255',
+            'event_description' => 'nullable|string|max:255',
             'event_date' => 'required|string|max:255',
             'event_location' => 'required|string|max:255',
             'event_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         // Upload the horse image if provided
+        $event_image_path = null;
+
+        // If an image is uploaded, store it
         if ($request->hasFile('event_image')) {
             $event_image_path = $request->file('event_image')->store('event_image', 'public');
-            $validatedData['event_image'] = $event_image_path;
         }
         $event = Event::find($id);
         $event->event_title = $request->event_title;

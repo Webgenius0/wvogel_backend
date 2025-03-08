@@ -12,6 +12,7 @@ class HorseShareForSale extends Model
     protected $fillable = [
         'user_id',
         'horse_id',
+        'category_id',
         'ownership_share',
         'sub_total_price',
         'total_price',
@@ -28,6 +29,11 @@ class HorseShareForSale extends Model
     public function horse()
     {
         return $this->belongsTo(Horses::class, 'horse_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     protected $hidden =[

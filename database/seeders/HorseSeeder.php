@@ -15,6 +15,7 @@ class HorseSeeder extends Seeder
     {
         DB::table('horses')->insert([
             [
+                'category_id' => 1,
                 'name' => 'Thunder Bolt',
                 'about_horse' => 'A fast and powerful racing horse.',
                 'horse_image' => 'horses/thunder_bolt.jpg',
@@ -29,6 +30,7 @@ class HorseSeeder extends Seeder
                 'owner' => 'Elite Racing Club',
             ],
             [
+                'category_id' => 2,
                 'name' => 'Shadow Runner',
                 'about_horse' => 'Known for its speed in short sprints.',
                 'horse_image' => 'horses/shadow_runner.jpg',
@@ -43,6 +45,7 @@ class HorseSeeder extends Seeder
                 'owner' => 'Sunset Stables',
             ],
             [
+                'category_id' => 3,
                 'name' => 'Golden Hoof',
                 'about_horse' => 'An experienced champion horse.',
                 'horse_image' => 'horses/golden_hoof.jpg',

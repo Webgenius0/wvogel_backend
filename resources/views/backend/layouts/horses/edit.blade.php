@@ -34,6 +34,16 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label for="category_id">Category</label>
+                        <select name="category_id" class="form-control" required>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ $horse->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->category_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="name">Horse Name</label>
                         <input type="text" name="name" class="form-control" value="{{ $horse->name }}" required>
                     </div>

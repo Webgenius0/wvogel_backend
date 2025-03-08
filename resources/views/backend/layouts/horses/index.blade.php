@@ -25,6 +25,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Category Name</th>
                     <th>Name</th>
                     <th>About Horse</th>
                     <th>Racing Start</th>
@@ -41,8 +42,10 @@
                 </tr>
             </thead>
             <tbody>
+
                 @foreach($horses as $horse)
                 <tr>
+                    <td>{{ $horse->category->category_name ?? 'N/A' }}</td>
                     <td>{{ $horse->name ?? 'N/A' }}</td>
                     <td>{{ $horse->about_horse ?? 'N/A' }}</td>
 

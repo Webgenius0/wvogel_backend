@@ -12,7 +12,7 @@ class ApiHorseController   extends Controller
    public function index() {
 
     try {
-        $horse=Horses::all();
+        $horse=Horses::with('category')->get();
         return ApiResponse::success(true, 200, 'Horse fatched successfully', $horse);
 
     } catch (\Exception $e) {
@@ -21,7 +21,7 @@ class ApiHorseController   extends Controller
    }
    public function show($id) {
     try {
-        $horse=Horses::findOrFail($id);
+        $horse=Horses::with('category')->findOrFail($id);
         return ApiResponse::success(true, 200, 'Horse fatched successfully', $horse);
     } catch (\Exception $e) {
         return ApiResponse::error( 500, 'Horse not found', $e->getMessage());
