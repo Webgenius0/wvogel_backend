@@ -5,9 +5,10 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class MessageNotification extends Notification implements ShouldQueue
+class MessageNotification extends Notification
 {
     use Queueable;
 
@@ -17,7 +18,7 @@ class MessageNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct($message, string $senderName)
+    public function __construct($message, $senderName)
     {
         $this->message = $message;
         $this->senderName = $senderName;
@@ -28,21 +29,19 @@ class MessageNotification extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via($notifiable)
     {
         return ['database', 'broadcast'];
     }
 
     /**
-     * Get the database representation of the notification.
-     *
-     * @return array<string, mixed>
+     * Store notification data in database
      */
-    public function toDatabase(object $notifiable): array
+    public function toDatabase($notifiable)
     {
         return [
             'sender_id' => $this->message->sender_id,
-            'sender_name' => $this->senderName, // Include sender's name
+            'sender_name' => $this->senderName,
             'receiver_id' => $this->message->receiver_id,
             'message' => $this->message->message,
         ];
@@ -50,14 +49,25 @@ class MessageNotification extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @return BroadcastMessage
      */
-    public function toBroadcast(object $notifiable): BroadcastMessage
+    public function toArray($notifiable)
+    {
+        return [
+            'sender_id' => $this->message->sender_id,
+            'sender_name' => $this->senderName,
+            'receiver_id' => $this->message->receiver_id,
+            'message' => $this->message->message,
+        ];
+    }
+
+    /**
+     * Broadcast the notification.
+     */
+    public function toBroadcast($notifiable)
     {
         return new BroadcastMessage([
             'sender_id' => $this->message->sender_id,
-            'sender_name' => $this->senderName, // Use dynamic sender name
+            'sender_name' => $this->senderName,
             'receiver_id' => $this->message->receiver_id,
             'message' => $this->message->message,
         ]);

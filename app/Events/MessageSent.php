@@ -5,7 +5,6 @@ namespace App\Events;
 use App\Models\Message;
 use App\Models\User;
 use App\Notifications\MessageNotification;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -16,9 +15,12 @@ class MessageSent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Message $message;
-    public string $senderName;
+    public $message;
+    public $senderName;
 
+    /**
+     * Create a new event instance.
+     */
     public function __construct(Message $message)
     {
         $this->message = $message;
@@ -26,18 +28,12 @@ class MessageSent implements ShouldBroadcastNow
         // Fetch the sender's name
         $sender = User::find($message->sender_id);
         $this->senderName = $sender ? $sender->name : 'Unknown';
-
-        // Send notification to the receiver
-        $receiver = User::find($message->receiver_id);
-        if ($receiver) {
-            $receiver->notify(new MessageNotification($message, $this->senderName));
-        }
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array
+     * @return array<int, \Illuminate\Broadcasting\Channel>
      */
     public function broadcastOn(): array
     {
@@ -49,13 +45,13 @@ class MessageSent implements ShouldBroadcastNow
     /**
      * Get the data to broadcast.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function broadcastWith(): array
     {
         return [
             'sender_id' => $this->message->sender_id,
-            'sender_name' => $this->senderName, // Include sender's name
+            'sender_name' => $this->senderName,
             'receiver_id' => $this->message->receiver_id,
             'message' => $this->message->message,
         ];

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ApiEventController;
 use App\Http\Controllers\Api\ApiHorseController;
 use App\Http\Controllers\Api\ApiHorseShareForSaleController;
 use App\Http\Controllers\Api\ApiMessageController;
+use App\Http\Controllers\Api\ApiNotificationController;
 use App\Http\Controllers\Api\ApiRaceController;
 use App\Http\Controllers\Api\ApiWinChampionController;
 use App\Http\Controllers\Api\auth\LoginController;
@@ -41,6 +42,10 @@ Route::controller(ApiEventController::class)->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::post('/messages/send', [ApiMessageController::class, 'sendMessage']);
     Route::get('/messages/{userId}', [ApiMessageController::class, 'getMessages']);
+});
+//Chat notifications methods
+Route::middleware('auth:api,')->group(function () {
+    Route::get('messages/notifications', [ApiNotificationController::class, 'index']);
 });
 
 
