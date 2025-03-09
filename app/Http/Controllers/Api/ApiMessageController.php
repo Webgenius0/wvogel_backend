@@ -25,8 +25,10 @@ class ApiMessageController extends Controller
             'receiver_id' => $request->receiver_id,
             'message' => $request->message,
         ]);
+        // Load sender's info for the response
+        $message->load('sender:id,name'); // Ensure the sender's name is loaded
 
-        //  Broadcast event to receiver
+        // Broadcast the event
         broadcast(new MessageSent($message))->toOthers();
 
         return response()->json([
@@ -52,6 +54,7 @@ class ApiMessageController extends Controller
             $query->where('sender_id', $userId)
                   ->where('receiver_id', Auth::id());
         })->latest()->get(); // Use latest() instead of orderBy()
+
 
         return response()->json([
             'status' => 'success',

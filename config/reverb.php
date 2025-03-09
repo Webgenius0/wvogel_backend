@@ -29,9 +29,9 @@ return [
     'servers' => [
 
         'reverb' => [
-            'host' => env('VITE_REVERB_HOST', '0.0.0.0'),
+            'host' => env('VITE_REVERB_HOST', '127.0.0.1'),
             'port' => env('VITE_REVERB_PORT', 8080),
-            // 'hostname' => env('REVERB_HOST'),
+            'hostname' => env('REVERB_HOST'),
             'options' => [
                 'tls' => [],
             ],

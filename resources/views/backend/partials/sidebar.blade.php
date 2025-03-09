@@ -7,7 +7,7 @@
     <div class="app-sidebar">
         <div class="side-header">
             <a class="header-brand1" href="{{ route('dashboard') }}">
-               <h4>Admin Dashboard</h4>
+                <img style="background-color:#3A3A3C; border-radius: 10px; height: 100%;" src="/backend/images/logo/wvogel logo.png" alt="WVogel Logo">
             </a>
         </div>
 

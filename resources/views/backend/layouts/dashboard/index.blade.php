@@ -104,12 +104,18 @@
     <!-- Echo Script for Real-time chat events -->
     <script>
         $(document).ready(function() {
-            Echo.private('chat.' + 1).listen('MessageSent', (e) => {
-                console.log(e);
-            });
+            let userId = @json(auth()->id()); // Safely pass the user ID as a JSON value
 
-            Echo.private('chat.' + 2).listen('MessageSent', (e) => {
-                console.log(e);
+            Echo.private('chat.' + userId).listen('MessageSent', (e) => {
+                console.log("New message received:", e);
+
+                // Show Toastr notification with sender's name
+                toastr.success(`${e.sender_name} sent you a message!`, 'New Message', {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 5000, // Auto close in 5 seconds
+                    positionClass: "toast-bottom-right"
+                });
             });
         });
     </script>

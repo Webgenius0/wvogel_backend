@@ -6,6 +6,15 @@
 {{-- BOOTSTRAP JS --}}
 <script src="{{ asset('backend/plugins/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<!-- jQuery (Ensure jQuery is included) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
 {{-- SIDE-MENU JS --}}
 <script src="{{ asset('backend/plugins/sidemenu/sidemenu.js') }}"></script>
