@@ -44,8 +44,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/messages/{userId}', [ApiMessageController::class, 'getMessages']);
 });
 //Chat notifications methods
-Route::middleware('auth:api,')->group(function () {
-    Route::get('messages/notifications', [ApiNotificationController::class, 'index']);
+Route::middleware('auth:api,role:user')->group(function () {
+    Route::get('notifications', [ApiNotificationController::class, 'index']);
+    Route::get('notifications/{id}', [ApiNotificationController::class, 'read']);
 });
 
 
