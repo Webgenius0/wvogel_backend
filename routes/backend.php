@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Backend\EventController;
 use App\Http\Controllers\Web\Backend\HorsesController;
 use App\Http\Controllers\Web\Backend\PaymetHistoryController;
 use App\Http\Controllers\Web\Backend\RaceController;
+use App\Http\Controllers\Web\Backend\RacingResultController;
 use App\Http\Controllers\Web\Backend\Settings\DynamicPageController;
 use App\Http\Controllers\Web\Backend\Settings\MailSettingController;
 use App\Http\Controllers\Web\Backend\Settings\ProfileController;
@@ -80,6 +81,16 @@ Route::controller(EventController::class)->group(function () {
     Route::get('/event/{id}/edit', 'edit')->name('event.edit');
     Route::put('/event/{id}', 'update')->name('event.update');
     Route::delete('/event/{id}', 'destroy')->name('event.destroy');
+});
+
+//! Route for Racing Result
+Route::controller(RacingResultController::class)->group(function () {
+    Route::get('/racing-result', 'index')->name('racing_result.index');
+    Route::get('/racing-result/create', 'create')->name('racing_result.create');
+    Route::post('/racing-result', 'store')->name('racing_result.store');
+    Route::get('/racing-result/{id}/edit', 'edit')->name('racing_result.edit');
+    Route::put('/racing-result/{id}', 'update')->name('racing_result.update');
+    Route::delete('/racing-result/{id}', 'destroy')->name('racing_result.destroy');
 });
 
 

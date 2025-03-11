@@ -83,6 +83,16 @@
                     </a>
                 </li>
 
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('racing_result.index') }}">
+                        <!-- Trophy Icon for Racing Result -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 4V2h8v2M17 8a5 5 0 0 1 5 5v2a2 2 0 0 1-2 2h-2M7 8a5 5 0 0 0-5 5v2a2 2 0 0 0 2 2h2M5 22h14M9 17c0 2.21 1.79 4 4 4s4-1.79 4-4v-4H9v4z"></path>
+                        </svg>
+                        <span class="side-menu__label">Racing Result</span>
+                    </a>
+                </li>
+
 
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('payment.index') }}">
