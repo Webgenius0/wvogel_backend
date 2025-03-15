@@ -83,8 +83,8 @@ class ApiHorseShareForSaleController extends Controller
             ],
         ],
         'application_context' => [
-            'return_url' => route('payment.success'),
-            'cancel_url' => route('payment.cancel'),
+            'return_url' => route('paypal.payment.success'),
+            'cancel_url' => route('paypal.payment.cancel'),
         ],
     ]);
 

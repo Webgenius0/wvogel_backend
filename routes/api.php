@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ApiMessageController;
 use App\Http\Controllers\Api\ApiNotificationController;
 use App\Http\Controllers\Api\ApiRaceController;
 use App\Http\Controllers\Api\ApiRacingResultController;
+use App\Http\Controllers\Api\ApiStripePaymentController;
 use App\Http\Controllers\Api\ApiWinChampionController;
 use App\Http\Controllers\Api\auth\LoginController;
 use App\Http\Controllers\Api\auth\ProfileUpdateController;
@@ -69,11 +70,20 @@ Route::middleware('auth:api,role:user')->group(function () {
 
 
 
-//Horse sale methods
+//Horse sale methods with paypal
 
 Route::middleware(['auth:api, role:user'])->group(function () {
-    Route::get('/horse-share-for-sale', [ApiHorseShareForSaleController::class, 'index']);
-    Route::post('/horse-share-for-sale', [ApiHorseShareForSaleController::class, 'store']);
+    // Route::get('/horse-share-for-sale', [ApiHorseShareForSaleController::class, 'index']);
+    Route::post('/paypal/horse-share-for-sale', [ApiHorseShareForSaleController::class, 'store']);
 });
-Route::get('/payment/success', [ApiHorseShareForSaleController::class, 'success'])->name('payment.success');
-Route::get('/payment/cancel', [ApiHorseShareForSaleController::class, 'cancel'])->name('payment.cancel');
+Route::get('/paypal/payment/success', [ApiHorseShareForSaleController::class, 'success'])->name('paypal.payment.success');
+Route::get('/paypal/payment/cancel', [ApiHorseShareForSaleController::class, 'cancel'])->name('paypal.payment.cancel');
+
+//Horse sale methods with stripe
+
+Route::middleware(['auth:api, role:user'])->group(function () {
+    // Route::get('/horse-share-for-sale', [ApiHorseShareForSaleController::class, 'index']);
+    Route::post('/stripe/horse-share-for-sale', [ApiStripePaymentController::class, 'createPayment']);
+});
+Route::get('/stripe/payment/success', [ApiStripePaymentController::class,'success'])->name('stripe.payment.success');
+Route::get('/stripe/payment/cancel', [ApiStripePaymentController::class,'cancel'])->name('stripe.payment.cancel');

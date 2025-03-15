@@ -14,6 +14,7 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
+        
         try {
             // Validate the login credentials
             $request->validate([
