@@ -1,4 +1,6 @@
 <?php
+
+use App\Console\Commands\StrogelinkCommand;
 use Illuminate\Http\Request;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CheckRoleMiddleware;
@@ -40,4 +42,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 401);
             }
         });
-    })->create();
+    })
+
+      // Register commands here
+      ->withCommands([
+        StrogelinkCommand::class,  // Register your command here
+    ])
+    ->create();

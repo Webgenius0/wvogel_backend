@@ -23,13 +23,14 @@ class ArtisanCommandController extends Controller
 
     public function strogelink(): JsonResponse {
         try {
-            Artisan::call('strogelink:run');
+            Artisan::call('app:strogelink-command'); // Correct command name
             return response()->json(['success' => true, 'message' => 'Strogelink has been run successfully.'], 200);
         } catch (Exception $e) {
             Log::error('Error running strogelink: ' . $e->getMessage(), ['exception' => $e]);
             return response()->json(['success' => false, 'message' => 'Error running strogelink: ' . $e->getMessage()], 500);
         }
     }
-
     
+
+
 }
