@@ -107,6 +107,19 @@
                     </a>
                 </li>
 
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('onboard.index') }}">
+                        <!-- Onboard Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"/> <!-- User Head -->
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/> <!-- User Body -->
+                            <polyline points="16 11 18 13 22 9"/> <!-- Checkmark -->
+                        </svg>
+                        <span class="side-menu__label">Onboard History</span>
+                    </a>
+                </li>
+
+
 
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="#">

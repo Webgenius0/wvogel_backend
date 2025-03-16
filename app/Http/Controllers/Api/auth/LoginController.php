@@ -14,7 +14,7 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        
+
         try {
             // Validate the login credentials
             $request->validate([
@@ -40,7 +40,7 @@ class LoginController extends Controller
 
             Log::info('User logged in successfully. Generated token:', ['token' => $token]);
             return response()->json([
-                'status' => true,
+                'success' => true,
                 'message' => 'User logged in successfully',
                 'code' => 200,
                 'token_type' => 'bearer',

@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\Backend\CategoryController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\EventController;
 use App\Http\Controllers\Web\Backend\HorsesController;
+use App\Http\Controllers\Web\Backend\OnboardController;
 use App\Http\Controllers\Web\Backend\PaymetHistoryController;
 use App\Http\Controllers\Web\Backend\RaceController;
 use App\Http\Controllers\Web\Backend\RacingResultController;
@@ -99,3 +100,10 @@ Route::controller(PaymetHistoryController::class)->group(function () {
     Route::get('/payment-history', 'index')->name('payment.index');
     Route::delete('/payment-history/{id}', 'destroy')->name('payment.destroy');
 });
+
+//! Route for Onboard
+Route::controller(OnboardController::class)->group(function () {
+    Route::get('/onboard', 'index')->name('onboard.index');
+    Route::delete('/onboard/{id}', 'destroy')->name('onboard.destroy');
+});
+

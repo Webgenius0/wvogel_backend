@@ -9,16 +9,31 @@ use Illuminate\Http\Request;
 
 class ApiHorseController   extends Controller
 {
-   public function index() {
+    public function index(Request $request) {
+        try {
+            // Get category name from request
+            $categoryName = $request->query('category_name');
 
-    try {
-        $horse=Horses::with('category')->get();
-        return ApiResponse::success(true, 200, 'Horse fatched successfully', $horse);
+            // Fetch horses with category relation
+            $query = Horses::with('category');
 
-    } catch (\Exception $e) {
-        return ApiResponse::error(false, 500, 'An error occurred', $e->getMessage());
+            // Filter by category name if provided
+            if ($categoryName) {
+                $query->whereHas('category', function ($q) use ($categoryName) {
+                    $q->where('category_name', $categoryName);
+                });
+            }
+
+            // Paginate the results (10 per page)
+            $horses = $query->paginate(10);
+
+            return ApiResponse::success(true, 200, 'Horses fetched successfully', $horses);
+
+        } catch (\Exception $e) {
+            return ApiResponse::error(false, 500, 'An error occurred', $e->getMessage());
+        }
     }
-   }
+
    public function show($id) {
     try {
         $horse=Horses::with('category')->findOrFail($id);
