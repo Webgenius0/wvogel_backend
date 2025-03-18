@@ -17,3 +17,5 @@ jobs:
           server: ftp.softvencefsd.xyz
           username: wvogell@wvogell.softvencefsd.xyz
           password: "softvencefsd_wvogell"
+          local-dir: ./path_to_local_files # Adjust this to your local directory
+          remote-dir: /public_html/storage # Adjust this to your remote directory path
