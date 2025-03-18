@@ -45,6 +45,7 @@ class HorsesController extends Controller
                 'age' => 'required|string|max:255',
                 'trainer' => 'required|string|max:255',
                 'owner' => 'required|string|max:255',
+                'price' => 'required|integer',
             ]);
 
             // Upload the horse image if provided
@@ -68,6 +69,7 @@ class HorsesController extends Controller
                 'age' => $validatedData['age'],
                 'trainer' => $validatedData['trainer'],
                 'owner' => $validatedData['owner'],
+                'price' => $validatedData['price'],
             ]);
 
             // Return the created horse record
@@ -103,6 +105,7 @@ class HorsesController extends Controller
                 'age' => 'required|string|max:255',
                 'trainer' => 'required|string|max:255',
                 'owner' => 'required|string|max:255',
+                'price' => 'required|integer',
             ]);
 
             // Upload the horse image if provided
@@ -127,6 +130,7 @@ class HorsesController extends Controller
                 'age' => $validatedData['age'],
                 'trainer' => $validatedData['trainer'],
                 'owner' => $validatedData['owner'],
+                'price' => $validatedData['price'],
             ]);
 
             // Return the updated horse record

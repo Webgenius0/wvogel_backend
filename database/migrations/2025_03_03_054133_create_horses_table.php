@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('age');
             $table->string('trainer');
             $table->string('owner');
+            $table->integer('price')->default(0);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); // Add foreign key constraint to categories table using Laravel's migration syntax. This ensures data integrity and prevents orphaned records.
 

@@ -52,6 +52,10 @@
                         <label for="about_horse">About Horse</label>
                         <textarea name="about_horse" class="form-control" rows="3">{{ $horse->about_horse }}</textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="about_horse"> Horse Price</label>
+                        <textarea name="price" class="form-control" rows="3">{{ $horse->price }}</textarea>
+                    </div>
 
                     <div class="form-group">
                         <label for="racing_start">Racing Start</label>

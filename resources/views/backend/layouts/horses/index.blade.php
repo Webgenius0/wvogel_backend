@@ -28,6 +28,7 @@
                     <th>Category Name</th>
                     <th>Name</th>
                     <th>About Horse</th>
+                    <th>Horse Price</th>
                     <th>Racing Start</th>
                     <th>Racing Win</th>
                     <th>Racing Place</th>
@@ -48,7 +49,7 @@
                     <td>{{ $horse->category->category_name ?? 'N/A' }}</td>
                     <td>{{ $horse->name ?? 'N/A' }}</td>
                     <td>{{ $horse->about_horse ?? 'N/A' }}</td>
-
+                    <td>{{ $horse->price ?? 'N/A' }}</td>
                     <td>{{ $horse->racing_start ?? '0' }}</td>
                     <td>{{ $horse->racing_win ?? '0' }}</td>
                     <td>{{ $horse->racing_place ?? '0' }}</td>

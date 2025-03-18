@@ -56,6 +56,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="about_horse"> Horse price</label>
+                        <textarea name="price" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
                         <label for="racing_start">Racing Start</label>
                         <input type="number" name="racing_start" class="form-control">
                     </div>

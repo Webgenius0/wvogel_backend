@@ -24,6 +24,7 @@ class Horses extends Model
         'trainer',
         'owner',
         'color',
+        'price',
     ];
 
     protected $hidden = [

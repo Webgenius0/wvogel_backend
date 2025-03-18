@@ -25,7 +25,7 @@ class ApiHorseController   extends Controller
             }
 
             // Paginate the results (10 per page)
-            $horses = $query->paginate(10);
+            $horses = $query->get();
 
             return ApiResponse::success(true, 200, 'Horses fetched successfully', $horses);
 
