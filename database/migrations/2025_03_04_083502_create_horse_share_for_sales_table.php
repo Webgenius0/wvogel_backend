@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('horse_id');
             $table->unsignedBigInteger('category_id');
             $table->string('ownership_share');
-            $table->integer('sub_total_price');
+            $table->integer('sub_total_price')->nullable();
             $table->integer('total_price');
             $table->string('paypal_payment_id')->nullable();
             $table->string('approval_url')->nullable();
