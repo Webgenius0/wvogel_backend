@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label for="about_horse"> Horse Price</label>
-                        <textarea name="price" class="form-control" rows="3">{{ $horse->price }}</textarea>
+                        <input type="number" name="price" class="form-control" value="{{ $horse->price }}">
                     </div>
 
                     <div class="form-group">

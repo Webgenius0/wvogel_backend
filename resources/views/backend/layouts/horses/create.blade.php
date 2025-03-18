@@ -57,7 +57,7 @@
 
                     <div class="form-group">
                         <label for="about_horse"> Horse price</label>
-                        <textarea name="price" class="form-control" rows="3"></textarea>
+                        <input type="number" name="price" class="form-control">
                     </div>
 
                     <div class="form-group">
