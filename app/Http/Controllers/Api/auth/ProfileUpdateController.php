@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\auth;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -87,5 +89,58 @@ public function updateprofile(Request $request, $id)
     }
 }
 
+public function updatePassword(Request $request)
+{
+    // Ensure the user is authenticated
+    $user = Auth::user();
+    
+    if (!$user) {
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'User not authenticated',
+        ], 401);
+    }
+
+    // Validate the incoming request
+    $validator = Validator::make($request->all(), [
+        'old_password' => 'required',
+        'password'     => 'required|confirmed|min:8',
+    ]);
+
+    // Return validation errors if any
+    if ($validator->fails()) {
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Validation failed',
+            'errors'  => $validator->errors(),
+        ], 400);
+    }
+
+    try {
+        // Check if the old password is correct
+        if (Hash::check($request->old_password, $user->password)) {
+            // Update the password
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Password updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Current password is incorrect',
+            ], 400);
+        }
+    } catch (Exception $e) {
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Something went wrong',
+            'error'   => $e->getMessage(),
+        ], 500);
+    }
 }
 
+
+}

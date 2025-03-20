@@ -48,6 +48,7 @@ class WinChampionController extends Controller
             'champion_date' => 'required|date',
             'champion_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        $champion_image_path = null;
         // Upload the horse image if provided
         if ($request->hasFile('champion_image')) {
             $champion_image_path = $request->file('champion_image')->store('champion_image', 'public');

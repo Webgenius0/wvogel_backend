@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Notification;
 
 class ApiMessageController extends Controller
 {
+    public function index(){
+        // Get the authenticated user
+        $userId = Auth::id();
+        // Get the messages for the user
+        $messages = Message::where('sender_id', $userId)
+        ->orWhere('receiver_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $messages
+        ], 200);
+    }
     // Send Message
     public function sendMessage(Request $request)
 {

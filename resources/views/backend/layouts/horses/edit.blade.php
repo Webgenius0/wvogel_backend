@@ -107,11 +107,29 @@
                         <input type="text" name="owner" class="form-control" value="{{ $horse->owner }}">
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="horse_image">Horse Image</label>
                         <input type="file" name="horse_image" class="form-control">
                         @if($horse->horse_image)
                             <img src="{{ asset('storage/' . $horse->horse_image) }}" alt="Horse Image" style="width: 100px; height: auto; margin-top: 10px;">
+                        @endif
+                    </div> --}}
+
+                    <div class="mb-3">
+                        <label for="horse_image" class="form-label">Horse Image</label>
+                        <input type="file" class="form-control" id="horse_image" name="horse_image">
+                    </div>
+
+                    <div class="mb-3">
+                        @if($horse->horse_image)
+                            <div>
+                                <img src="{{ asset('storage/' . $horse->horse_image) }}" alt="Champion Image" style="width: 100px; height: auto;">
+                            </div>
+                            <div class="mt-2">
+                                <small>Current Image</small>
+                            </div>
+                        @else
+                            <div>No image available</div>
                         @endif
                     </div>
                 </div>

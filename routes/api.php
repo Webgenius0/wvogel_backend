@@ -22,6 +22,9 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/user-info', [ProfileUpdateController::class, 'index']);
 Route::post('/update-user-info/{id}', [ProfileUpdateController::class, 'updateProfile']);
+// Route::post('/update-user-password/{id}', [ProfileUpdateController::class, 'updatePassword']);
+Route::middleware('auth:api')->post('update-user-password/{id}', [ProfileUpdateController::class, 'updatePassword']);
+
 
 //horse  methods
 Route::controller(ApiHorseController::class)->group(function (){
@@ -49,6 +52,7 @@ Route::controller(ApiRacingResultController::class)->group(function () {
 
 // Chat messages methods
 Route::middleware('auth:api')->group(function () {
+    Route::get('/messages', [ApiMessageController::class, 'index'] );
     Route::post('/messages/send', [ApiMessageController::class, 'sendMessage']);
     Route::get('/messages/{userId}', [ApiMessageController::class, 'getMessages']);
 });
