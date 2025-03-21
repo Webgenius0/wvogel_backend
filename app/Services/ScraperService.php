@@ -51,8 +51,8 @@ class ScraperService
 
         // Return the data as an array
         return [
-            'table1' => $table1Data,
-            'table2' => $table2Data
+            '2025_Statistics' => $table1Data,
+            'Career_Statistics' => $table2Data
         ];
     }
 
