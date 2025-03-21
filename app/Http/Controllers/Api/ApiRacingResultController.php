@@ -12,6 +12,11 @@ class ApiRacingResultController extends Controller
    public function index()
    {
     try{
+
+
+
+
+
         //here will be show the racing result for the user
         $racingResults = RacingResult::all();
         return ApiResponse::success(true, 200, 'Racing Results', $racingResults);
