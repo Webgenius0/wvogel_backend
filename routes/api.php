@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\auth\LoginController;
 use App\Http\Controllers\Api\auth\ProfileUpdateController;
 use App\Http\Controllers\Api\auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiEquibaseTrainerProfileDataController;
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
@@ -98,3 +99,6 @@ Route::get('/stripe/payment/cancel', [ApiStripePaymentController::class,'cancel'
 Route::middleware(['auth:api, role:user'])->group(function () {
     Route::post('/onboard-data', [ApiOnboardController::class, 'onboarStoredData']);
 });
+
+
+Route::get('/equibase/trainer-Profile', [ApiEquibaseTrainerProfileDataController::class,'scrape'])->name('equibase.trainer_profile.data');
