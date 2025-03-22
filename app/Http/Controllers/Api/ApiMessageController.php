@@ -90,4 +90,67 @@ class ApiMessageController extends Controller
             'messages' => $messages
         ]);
     }
-}
+
+    public function getChatUsers()
+{
+    // Get the authenticated user ID
+    $authUserId = Auth::id();
+
+// Fetch distinct user IDs that the authenticated user has chatted with
+$userIds = Message::where('sender_id', $authUserId)
+    ->orWhere('receiver_id', $authUserId)
+    ->selectRaw('sender_id, receiver_id')
+    ->get()
+    ->flatMap(function ($message) use ($authUserId) {
+        return [$message->sender_id, $message->receiver_id];
+    })
+    ->unique()
+    ->reject(fn ($id) => $id == $authUserId) // Remove the authenticated user from the list
+    ->values();
+
+// Fetch users with the latest message for each user
+$users = User::whereIn('id', $userIds)
+    ->with(['latestMessage' => function ($query) use ($authUserId) {
+        $query->where(function ($q) use ($authUserId) {
+            $q->where('sender_id', $authUserId)
+              ->orWhere('receiver_id', $authUserId);
+        })
+        ->orderBy('created_at', 'desc') // Sort messages by creation date
+        ->take(1); // Only get the latest message
+    }])
+    ->get();
+
+// Debugging - You can see all messages related to the authenticated user
+$messages = Message::where('sender_id', $authUserId)
+    ->orWhere('receiver_id', $authUserId)
+    ->get();
+
+ // You can comment this line out once you're confident about the messages.
+
+// Format response with last message included
+$formattedUsers = $users->map(function ($user) use ($authUserId) {
+    // Get the messages for the current user with the authenticated user
+    $userMessages = Message::where(function ($query) use ($authUserId, $user) {
+        $query->where('sender_id', $authUserId)
+              ->where('receiver_id', $user->id);
+    })->orWhere(function ($query) use ($authUserId, $user) {
+        $query->where('sender_id', $user->id)
+              ->where('receiver_id', $authUserId);
+    })->latest('created_at')->take(1) // Get the latest message
+      ->get();
+
+    // Get the latest message, or null if no message exists
+    $lastMessage = $userMessages->first(); // Since we took only one message
+
+    return [
+        'id' => $user->id,
+        'name' => $user->name,
+        'last_message' => $lastMessage ? $lastMessage->message : null,
+        // 'last_message_time' => $lastMessage ? $lastMessage->created_at->toDateTimeString() : null,
+    ];
+});
+
+// Send the formatted users as a response (you can return this if you're using API responses)
+return response()->json($formattedUsers);
+
+}};

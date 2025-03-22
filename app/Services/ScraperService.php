@@ -29,9 +29,12 @@ class ScraperService
         // Get the raw HTML content of the page
         $htmlContent = (string) $response->getBody();
 
+        dd($htmlContent);
+
 
         // Initialize the Crawler to parse the HTML content
         $crawler = new Crawler($htmlContent);
+
 
         // Look for the div with id 'peopleProfileRightDiv'
         $profileDiv = $crawler->filter('#peopleProfileRightDiv');
@@ -41,9 +44,12 @@ class ScraperService
             return ['error' => 'Profile div not found'];
         }
 
+
+
         // Extract the tables inside the div
         $table1 = $profileDiv->filter('table.table-compressed')->eq(0); // First table
         $table2 = $profileDiv->filter('table.table-compressed')->eq(1); // Second table
+
 
         // Extract data from each table
         $table1Data = $this->extractTableData($table1);

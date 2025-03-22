@@ -49,6 +49,7 @@ Route::controller(ApiEventController::class)->group(function () {
 //Racing result methods
 Route::controller(ApiRacingResultController::class)->group(function () {
     Route::get('racing-result', 'index');
+    Route::get('scaping-data','scaping');
 });
 
 // Chat messages methods
@@ -56,6 +57,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/messages', [ApiMessageController::class, 'index'] );
     Route::post('/messages/send', [ApiMessageController::class, 'sendMessage']);
     Route::get('/messages/{userId}', [ApiMessageController::class, 'getMessages']);
+    Route::get('/chat-users', [ApiMessageController::class, 'getChatUsers']);
 });
 //group chat methods
 

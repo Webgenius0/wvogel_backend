@@ -45,7 +45,7 @@ class ApiStripePaymentController extends Controller
             ], 404);
         }
 
-        $horseShares[] = [
+        $horseShares= [
             'user_id' => Auth::user()->id,
             'horse_id' => $horseData['horse_id'],
             'category_id' => $horse->category_id, // Fetch category dynamically
@@ -58,7 +58,7 @@ class ApiStripePaymentController extends Controller
         ];
     }
 
-    HorseShareForSale::insert($horseShares);
+   $horseShareForSaleData = HorseShareForSale::create($horseShares);
 
     // Stripe setup
     Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -82,6 +82,9 @@ class ApiStripePaymentController extends Controller
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,
             'mode' => 'payment',
+            'metadata' => [
+            'horse_Share_for_sale_data_id' => $horseShareForSaleData->id,
+        ],
             'success_url' => route('stripe.payment.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('stripe.payment.cancel'),
         ]);
@@ -112,9 +115,11 @@ class ApiStripePaymentController extends Controller
         try {
             // Retrieve the session from Stripe
             $session = Session::retrieve($sessionId);
-
+            //  dd($session['metadata']->horse_Share_for_sale_data_id);
+            $paypal_payment_id=$session['id'];
             // Update the horse shares status based on the successful payment
-            $horseShares = HorseShareForSale::where('paypal_payment_id', $session->id)->get();
+            $horseShares = HorseShareForSale::where('id', $session['metadata']->horse_Share_for_sale_data_id)->get();
+            // dd($horseShares);
 
             if ($horseShares->isEmpty()) {
                 return response()->json([
@@ -124,14 +129,13 @@ class ApiStripePaymentController extends Controller
             }
 
             foreach ($horseShares as $horseShare) {
+                $horseShare->paypal_payment_id= $session['id'] ;
                 $horseShare->status = 'success';
                 $horseShare->save();
             }
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Payment captured successfully.',
-            ], 200);
+            return redirect('https://www.beastmodehorseracing.com/payment-success');
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',

@@ -61,5 +61,14 @@ class User extends Authenticatable implements JWTSubject {
     public function messages(){
         return $this->hasMany(Message::class);
     }
+    public function latestMessage() {
+        return $this->hasMany(Message::class, 'sender_id')
+            ->orWhere('receiver_id', $this->id)
+            ->latest('created_at')
+            ->take(1); // Only get the latest message
+    }
+
+
+
 
 }
