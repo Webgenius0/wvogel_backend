@@ -103,4 +103,4 @@ Route::middleware(['auth:api, role:user'])->group(function () {
 });
 
 
-Route::get('/equibase/trainer-Profile', [ApiEquibaseTrainerProfileDataController::class,'scrape'])->name('equibase.trainer_profile.data');
+Route::get('/equibase/trainer-Profile', [ApiEquibaseTrainerProfileDataController::class,'getScapingdata'])->name('equibase.trainer_profile.data');
